@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#5EB4A5</color>
+    <color name="colorPrimaryDark">#78DECD</color>
+    <color name="colorAccent">#778ae0</color>
+
+    <!-- 기본 -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="whiteForBackground">#232833</color>
+    <color name="blackForText">#efefef</color>
+    <color name="redForText">#d9534f</color>
+
+
+    <!-- sub_1 -->
+    <color name="pink_1">#FF6B6B</color>
+    <color name="pink_2">#FE9090</color>
+    <color name="pink_3">#FDBBBB</color>
+    <color name="pink_4">#FEE8E8</color>
+    <color name="pink_5">#FFF4F4</color>
+
+
+    <!-- sub_2 -->
+    <color name="yellow_1">#FCA701</color>
+    <color name="yellow_2">#FCD301</color>
+    <color name="yellow_3">#FFF7CC</color>
+
+
+    <!-- text -->
+    <color name="black_2">#5F5F60</color>
+    <color name="black_3">#A5A5A5</color>
+    <color name="black_4">#DBDBDB</color>
+
+
+    <!-- bg -->
+    <color name="bg_1">#F2F2F2</color>
+
+
+    <!-- etc -->
+    <color name="blue">#98BCFF</color>
+    <color name="naver">#01C73C</color>
+
+</resources>
