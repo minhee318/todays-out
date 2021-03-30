@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.softsquared.todaysout">
+    package="com.happiness.todaysout">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -15,7 +15,7 @@
         android:required="true" />
 
     <application
-        android:name=".src.ApplicationClass"
+        android:name="com.happiness.todaysout.src.ApplicationClass"
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:icon="@drawable/app_icon"
@@ -25,39 +25,39 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
-        <activity android:name=".src.emergency.DateActivity"></activity>
-        <activity android:name=".src.emergency.MonthActivity"></activity>
-        <activity android:name=".src.mypage.DongSettingActivity" />
-        <activity android:name=".src.mypage.ProfileEditActivity" />
-        <activity android:name=".src.mypage.SettingActivity" />
-        <activity android:name=".src.emergency.EmergencyActivity" />
-        <activity android:name=".src.mypage.MyPageActivity" />
-        <activity android:name=".src.alarm.AlarmInfoActivity" />
-        <activity android:name=".src.alarm.AlarmActivity" />
-        <activity android:name=".src.weather.WriteActivity" />
+        <activity android:name="com.happiness.todaysout.src.emergency.DateActivity"></activity>
+        <activity android:name="com.happiness.todaysout.src.emergency.MonthActivity"></activity>
+        <activity android:name="com.happiness.todaysout.src.mypage.DongSettingActivity" />
+        <activity android:name="com.happiness.todaysout.src.mypage.ProfileEditActivity" />
+        <activity android:name="com.happiness.todaysout.src.mypage.SettingActivity" />
+        <activity android:name="com.happiness.todaysout.src.emergency.EmergencyActivity" />
+        <activity android:name="com.happiness.todaysout.src.mypage.MyPageActivity" />
+        <activity android:name="com.happiness.todaysout.src.alarm.AlarmInfoActivity" />
+        <activity android:name="com.happiness.todaysout.src.alarm.AlarmActivity" />
+        <activity android:name="com.happiness.todaysout.src.weather.WriteActivity" />
         <activity
-            android:name=".src.weather.NoticeBoardDetailActivity"
+            android:name="com.happiness.todaysout.src.weather.NoticeBoardDetailActivity"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".src.weather.WeatherActivity"></activity>
-        <activity android:name=".src.main.AddTownActivity" />
-        <activity android:name=".src.main.EditTownActivity" />
-        <activity android:name=".src.login.SearchActivity" />
-        <activity android:name=".src.login.TownSettingActivity" />
-        <activity android:name=".src.login.ProfileActivity" />
-        <activity android:name=".src.login.LoginActivity" />
-        <activity android:name=".src.login.SplashActivity">
+        <activity android:name="com.happiness.todaysout.src.weather.WeatherActivity"></activity>
+        <activity android:name="com.happiness.todaysout.src.main.AddTownActivity" />
+        <activity android:name="com.happiness.todaysout.src.main.EditTownActivity" />
+        <activity android:name="com.happiness.todaysout.src.login.SearchActivity" />
+        <activity android:name="com.happiness.todaysout.src.login.TownSettingActivity" />
+        <activity android:name="com.happiness.todaysout.src.login.ProfileActivity" />
+        <activity android:name="com.happiness.todaysout.src.login.LoginActivity" />
+        <activity android:name="com.happiness.todaysout.src.login.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".src.login.SplashFirstActivity"></activity>
-        <activity android:name=".src.main.MainActivity"></activity>
+        <activity android:name="com.happiness.todaysout.src.login.SplashFirstActivity"></activity>
+        <activity android:name="com.happiness.todaysout.src.main.MainActivity"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.softsquared.todaysout"
+            android:authorities="com.happiness.todaysout"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -65,7 +65,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <service android:name=".MyFirebaseMessagingService">
+        <service android:name="com.happiness.todaysout.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
