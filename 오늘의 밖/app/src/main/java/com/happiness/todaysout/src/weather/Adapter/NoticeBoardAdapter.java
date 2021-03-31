@@ -43,10 +43,10 @@ public class NoticeBoardAdapter extends RecyclerView.Adapter<NoticeBoardAdapter.
 //    Long userIdx2 = sSharedPreferences.getLong("USER_IDX", -1);
 
 
-    public NoticeBoardAdapter(Context context, ArrayList<BoardInfo> noticeBoardlist) {
+    public NoticeBoardAdapter(Context context, ArrayList<BoardInfo> noticeBoardlist,Long addressIdx) {
         this.context = context;
         this.noticeBoardlist = noticeBoardlist;
-//        this.addressIdx = addressIdx;
+        this.addressIdx = addressIdx;
 
     }
 
@@ -76,6 +76,7 @@ public class NoticeBoardAdapter extends RecyclerView.Adapter<NoticeBoardAdapter.
                 Intent notice = new Intent(context, NoticeBoardDetailActivity.class);
                 notice.putExtra("msgIdx", noticeBoardlist.get(position).getBoardIdx());
                 notice.putExtra("addressIdx", addressIdx);
+                Log.d("확인","ㄹㄹㄹ"+addressIdx);
                 context.startActivity(notice);
 
             }

@@ -161,8 +161,10 @@ public class NoticeBoardDetailActivity extends BaseActivity implements View.OnCl
 
 
         if(sSharedPreferences.getString(SECOND_DONG, null) != null){
+
             Log.d("확인","두번째 동으로 등록된 곳: "+sSharedPreferences.getString(SECOND_DONG, null));
         }else if(sSharedPreferences.getString(FIRST_DONG, null) != null){
+
             Log.d("확인","첫번째 동으로 등록된 곳: "+sSharedPreferences.getString(FIRST_DONG, null));
         }
 
@@ -206,6 +208,7 @@ public class NoticeBoardDetailActivity extends BaseActivity implements View.OnCl
 
         comment();
 
+    Log.d("확인","주소인덱스"+addressIdx);
         tryGetDongInfo(addressIdx);
         tryGetDetailInfo(msgIdx);
 
@@ -386,7 +389,7 @@ public class NoticeBoardDetailActivity extends BaseActivity implements View.OnCl
 
                     text_guName.setText(gu+"의");
 
-                    items.add("동을 선택해주세요");
+                   items.add("동을 선택해주세요");
 
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
@@ -679,8 +682,9 @@ public class NoticeBoardDetailActivity extends BaseActivity implements View.OnCl
             }
         } else {
 
+            Log.d("확인",response.getMessage()+response.getCode());
 
-            showCustomToast("네트워크 연결이 원활하지 않습니다.");
+            showCustomToast("동정보 네트워크 연결이 원활하지 않습니다.");
 
         }
     }

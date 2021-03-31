@@ -417,8 +417,9 @@
         android:layout_height="700dp"
         android:orientation="vertical"
         android:visibility="visible"
-        app:behavior_hideable="false"
+        app:behavior_hideable="true"
         app:behavior_peekHeight="130dp"
+
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <FrameLayout
@@ -641,7 +642,8 @@
         <FrameLayout
             android:id="@+id/FL_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/bg_1">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rc_heart"

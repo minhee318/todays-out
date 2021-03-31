@@ -36,6 +36,7 @@ import java.util.ArrayList;
 
 import static com.happiness.todaysout.src.ApplicationClass.FIRST_ADDRESSIDX;
 import static com.happiness.todaysout.src.ApplicationClass.SECOND_ADDRESSIDX;
+import static com.happiness.todaysout.src.ApplicationClass.USER_IDX;
 import static com.happiness.todaysout.src.ApplicationClass.sSharedPreferences;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, MainActivityView {
@@ -98,6 +99,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
 
         FirebaseMessaging.getInstance().getToken()

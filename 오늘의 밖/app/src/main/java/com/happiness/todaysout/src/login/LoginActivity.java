@@ -146,6 +146,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             switch (response.getCode()) {
                 case 1223: //신규
 
+
                     Log.d("확인",response.getMessage());
 
                     Log.d("확인","카카오 로그인 jwt"+response.getResult().getJwt());
@@ -171,26 +172,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     break;
 
                 case 1224:
-
+//
                     Log.d("확인",response.getMessage());
-
-//                    Log.d("확인","카카오 로그인 jwt"+response.getResult().getJwt());
-//                    Log.d("확인","카카오 로그인 userIdx"+response.getResult().getUserIdx());
 //
+////                    Log.d("확인","카카오 로그인 jwt"+response.getResult().getJwt());
+////                    Log.d("확인","카카오 로그인 userIdx"+response.getResult().getUserIdx());
+////
+////
+////                    if(response.getResult().getEmail() != null){
+////                        email = response.getResult().getEmail();
+////                        editor.putString(USER_EMAIL, email);
+////                    }else{
+////                        email = "이메일등록안함";
+////                        editor.putString(USER_EMAIL, email);
+////                    }
+////                    editor.apply();
 //
-//                    if(response.getResult().getEmail() != null){
-//                        email = response.getResult().getEmail();
-//                        editor.putString(USER_EMAIL, email);
-//                    }else{
-//                        email = "이메일등록안함";
-//                        editor.putString(USER_EMAIL, email);
-//                    }
-//                    editor.apply();
-
-                    Intent snsId2 = new Intent(this, MainActivity.class);
-//                    snsId2.putExtra("snsId",response.getResult().getSnsId());
-                    startActivity(snsId2);
-                    finish();
+//                    Intent snsId2 = new Intent(this, MainActivity.class);
+////                    snsId2.putExtra("snsId",response.getResult().getSnsId());
+//                    startActivity(snsId2);
+//                    finish();
 
 
                     break;

@@ -446,9 +446,9 @@ public class TownSettingActivity extends BaseActivity implements View.OnClickLis
 
                     editor.putLong(SECOND_ADDRESSIDX, addressidxList.get(1));
 
-                    Log.d("확인","user_idx:"+sSharedPreferences.getString(USER_IDX,null));
+                    Log.d("확인","user_idx:"+sSharedPreferences.getLong(USER_IDX,-1));
 
-                    Log.d("확인", "addressIdx확인:" + addressidxList.get(0) + "---" + addressList.get(1));
+                    Log.d("확인", "addressIdx확인:"+addressidxList.get(0)+addressList.get(1));
 
                     editor.apply();
 

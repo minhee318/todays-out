@@ -20,7 +20,9 @@ import com.happiness.todaysout.src.weather.WeatherActivity;
 import com.happiness.todaysout.src.weather.WriteActivity;
 import com.happiness.todaysout.src.weather.models.ReportResponse;
 
+import static com.happiness.todaysout.src.ApplicationClass.FIRST_ADDRESSIDX;
 import static com.happiness.todaysout.src.ApplicationClass.FIRST_DONG;
+import static com.happiness.todaysout.src.ApplicationClass.SECOND_ADDRESSIDX;
 import static com.happiness.todaysout.src.ApplicationClass.SECOND_DONG;
 import static com.happiness.todaysout.src.ApplicationClass.USER_EMAIL;
 import static com.happiness.todaysout.src.ApplicationClass.USER_IDX;
@@ -54,13 +56,17 @@ public class SettingActivity extends BaseActivity implements MyView {
         textBye.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                trydeleteInfo();
                 SharedPreferences.Editor editor2 = sSharedPreferences.edit();
                 editor2.remove(X_ACCESS_TOKEN);
                 editor2.remove(USER_IDX);
                 editor2.remove(FIRST_DONG);
                 editor2.remove(SECOND_DONG);
+                editor2.remove(FIRST_ADDRESSIDX);
+                editor2.remove(SECOND_ADDRESSIDX);
+
                 editor2.apply();
-                trydeleteInfo();
+
             }
         });
 
@@ -69,12 +75,12 @@ public class SettingActivity extends BaseActivity implements MyView {
         textLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor editor2 = sSharedPreferences.edit();
-                editor2.remove(X_ACCESS_TOKEN);
-                editor2.remove(USER_IDX);
-                editor2.remove(FIRST_DONG);
-                editor2.remove(SECOND_DONG);
-                editor2.apply();
+//                SharedPreferences.Editor editor2 = sSharedPreferences.edit();
+//                editor2.remove(X_ACCESS_TOKEN);
+//                editor2.remove(USER_IDX);
+//                editor2.remove(FIRST_DONG);
+//                editor2.remove(SECOND_DONG);
+//                editor2.apply();
             }
         });
 

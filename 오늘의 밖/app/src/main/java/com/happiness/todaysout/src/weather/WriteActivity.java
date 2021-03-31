@@ -203,7 +203,7 @@ public class WriteActivity extends BaseActivity implements View.OnClickListener,
                 @Override
                 public void onClick(View view) {
 
-                    dlg2.dismiss();
+                   showCustomToast("동을 선택해야 글쓰기가 가능해요!");
                 }
             });
 

@@ -47,6 +47,8 @@ import com.happiness.todaysout.src.weather.models.WeekResponse;
 
 import java.util.ArrayList;
 
+import static android.net.wifi.rtt.CivicLocationKeys.STATE;
+
 public class WeatherActivity extends BaseActivity implements View.OnClickListener, WeatherActivityView {
 
     RecyclerView rc_today;
@@ -209,6 +211,9 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
         View bottomSheet = findViewById(R.id.bottom_sheet);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
+
+
+
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -236,6 +241,7 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
                     case BottomSheetBehavior.STATE_SETTLING:
                         // showCustomToast("Settling");
                         break;
+
 
                 }
             }
@@ -340,7 +346,7 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
         layoutManager3 = new LinearLayoutManager(getApplication(), LinearLayoutManager.VERTICAL, false);
         rc_noticeBoard.setLayoutManager(layoutManager3);
 
-//        mNoticeBoardAdapter = new NoticeBoardAdapter(this, noticeList,addressIdx);
+        mNoticeBoardAdapter = new NoticeBoardAdapter(this, noticeList,addressIdx);
         rc_noticeBoard.setAdapter(mNoticeBoardAdapter);
     }
 
@@ -602,7 +608,11 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
 
                     noticeList.addAll(response.getResult());
 
+
+
+
                     firstContent = response.getResult().get(0).getMsg();
+
 
 
                     if(firstContent != null){
@@ -616,11 +626,9 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
                     firstHeartNum = response.getResult().get(0).getHeartNum();
 
                     if(firstHeartNum != null){
-                        if(firstHeartNum.equals("0")){
-                            LL_weatherHeart.setVisibility(View.INVISIBLE);
-                        }else{
+
                             text_heart_number.setText(firstHeartNum);
-                        }
+
                     }else{
                         LL_weatherHeart.setVisibility(View.INVISIBLE);
                     }

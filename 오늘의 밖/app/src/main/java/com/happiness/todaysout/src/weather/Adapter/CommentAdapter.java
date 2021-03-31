@@ -65,8 +65,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.SliderVi
             @Override
             public void onClick(View view) {
 //                Log.d("확인", "삭제" + commentlist.get(position).getCommentIdx());
-                removeItem(position);
+//                removeItem(position);
                 tryDeleteInfo(msgIdx,commentlist.get(position).getCommentIdx());
+                removeItem(position);
             }
         });
 
@@ -141,7 +142,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.SliderVi
 
     @Override
     public void validateDeleteSuccess(ReportResponse response) {
+
         Log.d("확인","댓글삭제성공");
+
     }
 
     @Override
