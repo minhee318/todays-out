@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.happiness.todaysout.R;
+import com.happiness.todaysout.src.GuideActivity;
 import com.happiness.todaysout.src.emergency.EmergencyActivity;
 import com.happiness.todaysout.src.main.EditTownActivity;
 import com.happiness.todaysout.src.main.models.MainInfo;
@@ -79,6 +80,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SliderViewHold
         });
 
 
+        holder.img_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent info = new Intent(context, GuideActivity.class);
+                context.startActivity(info);
+            }
+        });
+
 
     }
 
@@ -107,6 +116,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SliderViewHold
         private LinearLayout LL_weatherheart;
         private ImageView img;
         private LinearLayout LL_dheart;
+        private ImageView img_info;
 
 
         MainInfo mainInfo;
@@ -133,6 +143,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SliderViewHold
             LL_weatherheart = itemView.findViewById(R.id.LL_weatherheart);
             img = itemView.findViewById(R.id.img);
             LL_dheart = itemView.findViewById(R.id.LL_dheart);
+            img_info = itemView.findViewById(R.id.img_info);
 
 
 

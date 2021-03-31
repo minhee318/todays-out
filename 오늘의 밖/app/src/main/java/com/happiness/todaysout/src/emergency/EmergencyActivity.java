@@ -19,6 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.happiness.todaysout.R;
 import com.happiness.todaysout.src.BaseActivity;
+import com.happiness.todaysout.src.GuideActivity;
 import com.happiness.todaysout.src.emergency.Adapter.EmergencyAdapter;
 import com.happiness.todaysout.src.emergency.Interface.JActivityView;
 import com.happiness.todaysout.src.emergency.models.JInfo;
@@ -84,6 +85,7 @@ public class EmergencyActivity extends BaseActivity implements View.OnClickListe
     ImageView icon;
     ImageView icon2;
     TextView textGu4;
+    ImageView btn_info;
 
 
 
@@ -104,6 +106,7 @@ public class EmergencyActivity extends BaseActivity implements View.OnClickListe
         textCount2 = findViewById(R.id.textCount2);
         icon = findViewById(R.id.icon);
         icon2 = findViewById(R.id.icon2);
+        btn_info = findViewById(R.id.btn_info);
 
 
 
@@ -327,6 +330,11 @@ public class EmergencyActivity extends BaseActivity implements View.OnClickListe
                 startActivity(mypage);
 
 
+                break;
+
+            case R.id.btn_info:
+                Intent info = new Intent(this, GuideActivity.class);
+                startActivity(info);
                 break;
 
         }

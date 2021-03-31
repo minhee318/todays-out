@@ -66,6 +66,7 @@ public class WriteActivity extends BaseActivity implements View.OnClickListener,
     String dong;
     ArrayList<DongInfo> dongList = new ArrayList<>();
     ArrayList<String> items = new ArrayList<>();
+    TextView textNumber;
 
 
 
@@ -73,6 +74,8 @@ public class WriteActivity extends BaseActivity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
+
+        textNumber = findViewById(R.id.textNumber);
 
 
         if(sSharedPreferences.getString(SECOND_DONG, null) != null){
@@ -272,6 +275,7 @@ public class WriteActivity extends BaseActivity implements View.OnClickListener,
             @Override
             public void afterTextChanged(Editable editable) {
                 msg = editText_content.getText().toString();
+                textNumber.setText(msg.length()+" / 100");
 
             }
 

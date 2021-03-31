@@ -100,6 +100,7 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
     TextView text_heart_number;
     String gu;
     LinearLayout LL_weatherHeart;
+    int page;
 
 
     FrameLayout FL_content;
@@ -107,6 +108,7 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void onResume() {
+        page = 0;
         tryGetBoardInfo(addressIdx, "recently");
 
         super.onResume();
@@ -137,6 +139,8 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
         addressIdx = notice.getLongExtra("addressIdx", 0);
 
         Log.d("확인", "주소인덱스:" + addressIdx);
+
+
 
         text_nowOndo = findViewById(R.id.text_nowOndo);
 
@@ -271,6 +275,8 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
         tryGetDustInfo(addressIdx);
         tryGetTodayInfo(addressIdx);
 
+        page = 0;
+
         tryGetBoardInfo(addressIdx, "recently");
 
 
@@ -319,7 +325,7 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
     private void tryGetBoardInfo(Long addressIdx, String sortType) {
         showProgressDialog();
         final WeatherService weatherService = new WeatherService(this);
-        weatherService.getBoard(addressIdx, sortType, 0, "WEATHER");
+        weatherService.getBoard(addressIdx, sortType,0, "WEATHER");
     }
 
 
@@ -348,6 +354,33 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
 
         mNoticeBoardAdapter = new NoticeBoardAdapter(this, noticeList,addressIdx);
         rc_noticeBoard.setAdapter(mNoticeBoardAdapter);
+
+        rc_noticeBoard.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//
+//                int lastVisibleItemPosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+//                int itemTotalCount = recyclerView.getAdapter().getItemCount();
+//
+//                if(lastVisibleItemPosition+1 == itemTotalCount){
+//                    page++;
+//                    if(page <= totalPage){
+//                        tryGetBoardInfo(addressIdx, "recently",page);
+//
+//                    }else {
+//
+//                    }
+//
+//                }
+//            }
+        });
+
     }
 
     private void ranking() {
