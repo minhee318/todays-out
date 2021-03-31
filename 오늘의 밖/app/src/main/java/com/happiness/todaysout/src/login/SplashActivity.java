@@ -1,7 +1,6 @@
 package com.happiness.todaysout.src.login;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -15,11 +14,9 @@ import com.happiness.todaysout.src.login.models.SignInResponse;
 import com.happiness.todaysout.src.main.MainActivity;
 
 import static com.happiness.todaysout.src.ApplicationClass.FIRST_ADDRESSIDX;
-import static com.happiness.todaysout.src.ApplicationClass.FIRST_DONG;
 import static com.happiness.todaysout.src.ApplicationClass.NICKNAME;
 import static com.happiness.todaysout.src.ApplicationClass.PROFILE_IMAGE;
 import static com.happiness.todaysout.src.ApplicationClass.SECOND_ADDRESSIDX;
-import static com.happiness.todaysout.src.ApplicationClass.SECOND_DONG;
 import static com.happiness.todaysout.src.ApplicationClass.USER_EMAIL;
 import static com.happiness.todaysout.src.ApplicationClass.USER_IDX;
 import static com.happiness.todaysout.src.ApplicationClass.X_ACCESS_TOKEN;

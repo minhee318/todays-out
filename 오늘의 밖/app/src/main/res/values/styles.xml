@@ -28,6 +28,13 @@
         <item name="android:background">@drawable/bottom_border_layout</item>
     </style>
 
+    <style name="NavigationViewStyle">
+        <item name="android:listPreferredItemHeightSmall">60dp</item>
+    </style>
+
+
+
+
 
 
 

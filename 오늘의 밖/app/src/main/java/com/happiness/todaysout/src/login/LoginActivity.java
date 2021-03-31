@@ -22,7 +22,6 @@ import com.happiness.todaysout.src.login.Interface.LoginActivityView;
 import com.happiness.todaysout.src.login.models.AccessToken;
 import com.happiness.todaysout.src.login.models.LoginResponse;
 import com.happiness.todaysout.src.login.models.SignInResponse;
-import com.happiness.todaysout.src.main.MainActivity;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

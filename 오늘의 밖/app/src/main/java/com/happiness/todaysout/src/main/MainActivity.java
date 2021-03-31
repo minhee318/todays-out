@@ -3,16 +3,20 @@ package com.happiness.todaysout.src.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -36,10 +40,9 @@ import java.util.ArrayList;
 
 import static com.happiness.todaysout.src.ApplicationClass.FIRST_ADDRESSIDX;
 import static com.happiness.todaysout.src.ApplicationClass.SECOND_ADDRESSIDX;
-import static com.happiness.todaysout.src.ApplicationClass.USER_IDX;
 import static com.happiness.todaysout.src.ApplicationClass.sSharedPreferences;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, MainActivityView {
+public class MainActivity extends BaseActivity implements View.OnClickListener, MainActivityView,NavigationView.OnNavigationItemSelectedListener{
 
     ImageView btn_add;
     ViewPager2 main_viewpager;
@@ -82,6 +85,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     String dust2;
     MainAdapter mMainAdapter;
     String token;
+    ImageView menu;
+
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+
+
 
     @Override
     protected void onResume() {
@@ -99,6 +108,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        menu = findViewById(R.id.menu);
+        menu.setOnClickListener(this);
+
+        drawerLayout = findViewById(R.id.dl_main_drawer_root);
+        navigationView = findViewById(R.id.nv_main_navigation_root);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
 
 
 
@@ -196,12 +213,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 Intent mypage = new Intent(MainActivity.this, MyPageActivity.class);
                 mypage.putExtra("userIdx", sSharedPreferences.getLong("USER_IDX", -1));
                 startActivity(mypage);
-
-
+                break;
+            case R.id.menu:
+                        drawerLayout.openDrawer(GravityCompat.START);
                 break;
 
         }
     }
+
+
+
+
+
+
+
+
 
     @Override
     public void validateHomeSuccess(MainResponse response) {
@@ -507,6 +533,42 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void validateFailure(String message) {
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.item1:
+                Toast.makeText(this, "응원하기", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.item2:
+                Toast.makeText(this, "친구에게 알리기", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.item3:
+                Toast.makeText(this, "피드백 보내기", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.item4:
+                Toast.makeText(this, "만든 사람들", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return false;
+
+
 
     }
 }
