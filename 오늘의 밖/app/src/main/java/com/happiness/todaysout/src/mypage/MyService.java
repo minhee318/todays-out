@@ -56,6 +56,7 @@ class MyService {
                 final ReportResponse defaultResponse = response.body();
                 Log.d("확인","회원탈퇴 조회성공2");
                 if (defaultResponse == null) {
+                    Log.d("확인","회원탈퇴 null");
                     mMyView.validateFailure(null);
                     return;
                 }

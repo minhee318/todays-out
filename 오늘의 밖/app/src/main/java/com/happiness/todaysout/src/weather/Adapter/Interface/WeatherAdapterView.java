@@ -10,5 +10,7 @@ public interface WeatherAdapterView {
 
     void validatePostReportCommentSuccess(ReportResponse response);
 
+    void validatePostReportContentSuccess(ReportResponse response);
+
     void validateFailure(String message);
 }

@@ -6,8 +6,25 @@ import java.util.ArrayList;
 
 public class BoardResponse {
 
-    @SerializedName("result")
-    ArrayList<BoardInfo> result;
+
+
+    public class result {
+
+        @SerializedName("messageList")
+        ArrayList<BoardInfo> msgList;
+
+
+        public ArrayList<BoardInfo> getMsgList() {
+            return msgList;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        @SerializedName("totalCount")
+        private int count;
+    }
 
     @SerializedName("code")
     private int code;
@@ -30,6 +47,14 @@ public class BoardResponse {
         return isSuccess;
     }
 
-    public ArrayList<BoardInfo> getResult() {return result;}
+
+    @SerializedName("result")
+    private result result;
+    public result getResult() {
+        return result;
+    }
+
+
+
 
 }

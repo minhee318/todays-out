@@ -30,7 +30,7 @@
         android:background="@color/white"
         android:paddingLeft="27dp"
         android:paddingBottom="30dp"
-        android:text="내 프로필에서 보기"
+        android:text="내 프로필 보기"
         android:textColor="@color/black"
 
         android:textSize="16sp" />

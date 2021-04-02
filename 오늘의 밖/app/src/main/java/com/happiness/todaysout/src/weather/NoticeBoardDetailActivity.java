@@ -1,5 +1,6 @@
 package com.happiness.todaysout.src.weather;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -91,10 +93,14 @@ public class NoticeBoardDetailActivity extends BaseActivity implements View.OnCl
     EditText edittext_comment;
     String myDong;
 
+    InputMethodManager imm;
+
 
     String dong;
     Long msgIdx;
     String gu;
+    int page;
+    int totalPage;
 
     CommentAdapter mCommentAdapter;
     ArrayList<DongInfo> dongList = new ArrayList<>();
@@ -107,9 +113,11 @@ public class NoticeBoardDetailActivity extends BaseActivity implements View.OnCl
     protected void onResume() {
         super.onResume();
 
+//        page =0;
+//
+//        tryGetCommentInfo(addressIdx,page);
+//        comment();
 
-        comment();
-        tryGetCommentInfo(msgIdx, 0);
 
         tryGetHeartInfo(msgIdx);
         tryGetDetailInfo(msgIdx);
@@ -119,6 +127,10 @@ public class NoticeBoardDetailActivity extends BaseActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice_board_detail);
+
+
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        page =0;
 
         img_post = findViewById(R.id.img_post);
         img_post.setOnClickListener(this);
@@ -212,7 +224,7 @@ public class NoticeBoardDetailActivity extends BaseActivity implements View.OnCl
         tryGetDongInfo(addressIdx);
         tryGetDetailInfo(msgIdx);
 
-        tryGetCommentInfo(msgIdx, 0);
+        tryGetCommentInfo(msgIdx, page);
 
         tryGetHeartInfo(msgIdx);
 
@@ -275,6 +287,8 @@ public class NoticeBoardDetailActivity extends BaseActivity implements View.OnCl
 
         final WeatherService weatherService = new WeatherService(this);
         weatherService.getComment(msgIdx, page);
+
+
     }
 
     private void comment() {
@@ -283,6 +297,33 @@ public class NoticeBoardDetailActivity extends BaseActivity implements View.OnCl
 
         mCommentAdapter = new CommentAdapter(this, commentList,msgIdx);
         rc_comment.setAdapter(mCommentAdapter);
+
+
+
+        rc_comment.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int lastVisibleItemPosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                int itemTotalCount = recyclerView.getAdapter().getItemCount();
+
+                if(lastVisibleItemPosition+1 == itemTotalCount){
+                    page++;
+                    if(page <= totalPage){
+                        tryGetCommentInfo(msgIdx,page);
+                    }else {
+
+                    }
+
+                }
+            }
+        });
     }
 
 
@@ -355,6 +396,8 @@ public class NoticeBoardDetailActivity extends BaseActivity implements View.OnCl
 
             case R.id.img_post:
                 tryPostCommentInfo(msgIdx);
+                imm.hideSoftInputFromWindow(edittext_comment.getWindowToken(), 0);
+
 
                 break;
             case R.id.LL_dongsearch:
@@ -539,9 +582,17 @@ public class NoticeBoardDetailActivity extends BaseActivity implements View.OnCl
             switch (response.getCode()) {
                 case 1218:
                     Log.d("확인", "게시글댓글 성공");
-                    commentList.clear(); //먼저 eventList에 있는 것들을 다 지운다.
 
-                    commentList.addAll(response.getResult());
+
+                    if(page == 0){
+                        commentList.clear(); //먼저 eventList에 있는 것들을 다 지운다.
+                    }
+//
+
+
+                    commentList.addAll(response.getResult().getMsgList());
+
+                    totalPage = ((response.getResult().getCount()) / 10) + 1;
 
                     mCommentAdapter.notifyDataSetChanged(); //view차원에서 업데이트
                     break;
@@ -638,7 +689,10 @@ public class NoticeBoardDetailActivity extends BaseActivity implements View.OnCl
             switch (response.getCode()) {
                 case 1300:
                     showCustomToast(response.getMessage());
-                    tryGetCommentInfo(msgIdx, 0);
+                    page = 0;
+                    tryGetCommentInfo(msgIdx,page);
+
+                  comment();
                     edittext_comment.setText("");
                     break;
             }

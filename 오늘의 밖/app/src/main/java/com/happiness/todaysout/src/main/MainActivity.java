@@ -40,6 +40,7 @@ import java.util.ArrayList;
 
 import static com.happiness.todaysout.src.ApplicationClass.FIRST_ADDRESSIDX;
 import static com.happiness.todaysout.src.ApplicationClass.SECOND_ADDRESSIDX;
+import static com.happiness.todaysout.src.ApplicationClass.USER_IDX;
 import static com.happiness.todaysout.src.ApplicationClass.sSharedPreferences;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, MainActivityView,NavigationView.OnNavigationItemSelectedListener{
@@ -117,6 +118,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
 
+
+        Log.d("확인","userIdx"+sSharedPreferences.getLong(USER_IDX,-1));
 
 
         FirebaseMessaging.getInstance().getToken()

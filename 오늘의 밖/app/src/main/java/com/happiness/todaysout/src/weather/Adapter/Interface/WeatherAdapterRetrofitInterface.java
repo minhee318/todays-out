@@ -21,5 +21,8 @@ public interface WeatherAdapterRetrofitInterface {
     @POST("/comments/{commentIdx}/notification")
     Call<ReportResponse> postReportComment(@Path("commentIdx") Long commentIdx);
 
+    @POST("/messageBoards/{messageBoardIdx}/notification")
+    Call<ReportResponse> postReportContent(@Path("messageBoardIdx") Long messageBoardIdx);
+
 }
 

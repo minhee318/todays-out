@@ -24,7 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.happiness.todaysout.src.ApplicationClass.sSharedPreferences;
 
 
-public class MyPageActivity extends BaseActivity implements MyView,View.OnClickListener {
+public class MyPageActivity extends BaseActivity implements MyView, View.OnClickListener {
 
     Long userIdx;
     CircleImageView imgProfile;
@@ -49,12 +49,12 @@ public class MyPageActivity extends BaseActivity implements MyView,View.OnClickL
     @Override
     protected void onResume() {
 
-        if(userIdx == sSharedPreferences.getLong("USER_IDX", -1)){
+        if (userIdx == sSharedPreferences.getLong("USER_IDX", -1)) {
             tryGetMyInfo(userIdx);
             imgDot.setVisibility(View.VISIBLE);
             img_edit.setVisibility(View.VISIBLE);
             LL_editDong.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             tryGetMyInfo(userIdx);
             imgDot.setVisibility(View.INVISIBLE);
             img_edit.setVisibility(View.INVISIBLE);
@@ -71,7 +71,7 @@ public class MyPageActivity extends BaseActivity implements MyView,View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page);
 
-        btn_backDetail =findViewById(R.id.btn_backDetail);
+        btn_backDetail = findViewById(R.id.btn_backDetail);
 
         btn_backDetail.setOnClickListener(this);
 
@@ -83,7 +83,6 @@ public class MyPageActivity extends BaseActivity implements MyView,View.OnClickL
         textDong = findViewById(R.id.textDong);
         textSecondGu = findViewById(R.id.textSecondGu);
         textSecondDong = findViewById(R.id.textSecondDong);
-
 
 
         imgDot = findViewById(R.id.imgDot);
@@ -102,15 +101,15 @@ public class MyPageActivity extends BaseActivity implements MyView,View.OnClickL
 
 
         Intent getIntent = getIntent();
-        userIdx = getIntent.getLongExtra("userIdx",-1);
+        userIdx = getIntent.getLongExtra("userIdx", -1);
 
 
-        if(userIdx == sSharedPreferences.getLong("USER_IDX", -1)){
+        if (userIdx == sSharedPreferences.getLong("USER_IDX", -1)) {
             tryGetMyInfo(userIdx);
             imgDot.setVisibility(View.VISIBLE);
             img_edit.setVisibility(View.VISIBLE);
             LL_editDong.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             tryGetMyInfo(userIdx);
             imgDot.setVisibility(View.INVISIBLE);
             img_edit.setVisibility(View.INVISIBLE);
@@ -142,35 +141,35 @@ public class MyPageActivity extends BaseActivity implements MyView,View.OnClickL
                     }
 
 
-                    if(response.getResult().getNickname() != null){
+                    if (response.getResult().getNickname() != null) {
                         textNickName.setText(response.getResult().getNickname());
                     }
 
-                    if(response.getResult().getTalkNum() != null){
+                    if (response.getResult().getTalkNum() != null) {
                         textTalk.setText(response.getResult().getTalkNum());
-                    }else{
+                    } else {
                         textTalk.setText("0");
                     }
 
-                    if(response.getResult().getHeartNum() != null){
+                    if (response.getResult().getHeartNum() != null) {
                         textMyHeartNum.setText(response.getResult().getHeartNum());
-                    }else{
+                    } else {
                         textMyHeartNum.setText("0");
                     }
 
-                    if(response.getResult().getAddress().get(0).getGu() != null){
+                    if (response.getResult().getAddress().get(0).getGu() != null) {
                         textFirstGu.setText(response.getResult().getAddress().get(0).getGu());
                     }
 
-                    if(response.getResult().getAddress().get(0).getDong() != null){
+                    if (response.getResult().getAddress().get(0).getDong() != null) {
                         textDong.setText(response.getResult().getAddress().get(0).getDong());
                     }
 
-                    if(response.getResult().getAddress().get(1).getGu() != null){
+                    if (response.getResult().getAddress().get(1).getGu() != null) {
                         textSecondGu.setText(response.getResult().getAddress().get(1).getGu());
                     }
 
-                    if(response.getResult().getAddress().get(1).getDong() != null){
+                    if (response.getResult().getAddress().get(1).getDong() != null) {
                         textSecondDong.setText(response.getResult().getAddress().get(1).getDong());
                     }
 
@@ -183,80 +182,88 @@ public class MyPageActivity extends BaseActivity implements MyView,View.OnClickL
                     break;
             }
         } else {
-            Log.d("확인", response.getMessage());
-            showCustomToast("네트워크 연결이 원활하지 않습니다.");
-
-
-        }
-    }
-
-    @Override
-    public void validatePatchProfileSuccess(PatchProfileResponse response) {
-
-    }
-
-    @Override
-    public void validateMyDongSuccess(MyDongResponse response) {
-
-    }
-
-    @Override
-    public void validateMyDong2Success(MyDongResponse response) {
-
-    }
-
-    @Override
-    public void validateMyPostDongSuccess(ReportResponse response) {
-
-    }
-
-    @Override
-    public void validateMyPostDong2Success(ReportResponse response) {
-
-    }
-
-
-    @Override
-    public void validateByeSuccess(ReportResponse response) {
-
-    }
-
-    @Override
-    public void validateFailure(String message) {
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-
-            case R.id.imgDot:
-                Intent setting = new Intent(this, SettingActivity.class);
-                startActivity(setting);
-
-                break;
-            case R.id.img_edit:
-                Intent profileedit = new Intent(MyPageActivity.this, ProfileEditActivity.class);
-                startActivity(profileedit);
-                break;
-            case R.id.LL_editDong:
-                Intent dong = new Intent(MyPageActivity.this, DongSettingActivity.class);
-                dong.putExtra("List", List);
-                dong.putExtra("firstgu",firstGu);
-                dong.putExtra("secondgu",secondGu);
-                startActivity(dong);
-                break;
-            case R.id.LL_mytalk:
-
-                break;
-
-            case R.id.btn_backDetail:
+            switch (response.getCode()) {
+                case 3010:
+                    showCustomToast("탈퇴한 회원입니다.");
+                    Log.d("확인", "탈퇴한 회원입니다.");
                     finish();
-                break;
 
 
+                    break;
+                default:
+                    Log.d("확인", response.getMessage());
+                    showCustomToast("네트워크 연결이 원활하지 않습니다.");
+                    break;
 
+            }
+            }
+        }
+
+        @Override
+        public void validatePatchProfileSuccess (PatchProfileResponse response){
 
         }
+
+        @Override
+        public void validateMyDongSuccess (MyDongResponse response){
+
+        }
+
+        @Override
+        public void validateMyDong2Success (MyDongResponse response){
+
+        }
+
+        @Override
+        public void validateMyPostDongSuccess (ReportResponse response){
+
+        }
+
+        @Override
+        public void validateMyPostDong2Success (ReportResponse response){
+
+        }
+
+
+        @Override
+        public void validateByeSuccess (ReportResponse response){
+
+        }
+
+        @Override
+        public void validateFailure (String message){
+
+        }
+
+        @Override
+        public void onClick (View view){
+            switch (view.getId()) {
+
+                case R.id.imgDot:
+                    Intent setting = new Intent(this, SettingActivity.class);
+                    startActivity(setting);
+
+                    break;
+                case R.id.img_edit:
+                    Intent profileedit = new Intent(MyPageActivity.this, ProfileEditActivity.class);
+                    startActivity(profileedit);
+                    break;
+                case R.id.LL_editDong:
+                    Intent dong = new Intent(MyPageActivity.this, DongSettingActivity.class);
+                    dong.putExtra("List", List);
+                    dong.putExtra("firstgu", firstGu);
+                    dong.putExtra("secondgu", secondGu);
+                    startActivity(dong);
+                    break;
+                case R.id.LL_mytalk:
+
+                    break;
+
+                case R.id.btn_backDetail:
+                    finish();
+                    break;
+
+
+            }
+        }
     }
-}

@@ -95,6 +95,8 @@ public class ProfileEditActivity extends BaseActivity implements MyView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profileedit);
 
+        saveData();
+
         tryGetMyInfo(sSharedPreferences.getLong("USER_IDX", -1));
         editText_email = findViewById(R.id.editText_email);
 
@@ -114,9 +116,6 @@ public class ProfileEditActivity extends BaseActivity implements MyView {
 
         edittext_profile.setText(sSharedPreferences.getString("NICKNAME",null));
         profileName = sSharedPreferences.getString("NICKNAME",null);
-
-
-
 
 
 
@@ -190,12 +189,10 @@ public class ProfileEditActivity extends BaseActivity implements MyView {
             }
         });
 
-        btn_editsave = findViewById(R.id.btn_next);
+        btn_editsave = findViewById(R.id.btn_editsave);
         btn_editsave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(checkNickName){
 
                     if (mIsDefaultImage) { //기본이미지
 
@@ -212,7 +209,7 @@ public class ProfileEditActivity extends BaseActivity implements MyView {
                         }
                     }
 
-                    tryPathchMyInfo(email,profileName,photo);
+
                     SharedPreferences.Editor editor = sSharedPreferences.edit();
                     editor.putString(NICKNAME, profileName);
                     editor.putString(PROFILE_IMAGE,photo);
@@ -221,9 +218,7 @@ public class ProfileEditActivity extends BaseActivity implements MyView {
 
 
 
-                }else{
-                    showCustomToast("닉네임을 입력해주세요!");
-                }
+
             }
         });
 
@@ -265,26 +260,16 @@ public class ProfileEditActivity extends BaseActivity implements MyView {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (edittext_profile.getText().length() == 0) {
-                    checkNickName = false;
-                    btn_next.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                    btn_next.setTextColor(Color.parseColor("#A5A5A5"));
-                    btn_next.setEnabled(false);
+
                 } else {
-                    checkNickName = true;
-                    btn_next.setBackgroundColor(Color.parseColor("#78DECD"));
-                    btn_next.setTextColor(Color.parseColor("#FFFFFF"));
-                    btn_next.setBackgroundResource(R.drawable.nextbuttongreen);
-                    btn_next.setEnabled(true);
+
                 }
             }
 
             // 입력이 끝났을 때
             @Override
             public void afterTextChanged(Editable editable) {
-                btn_next.setBackgroundColor(Color.parseColor("#78DECD"));
-                btn_next.setTextColor(Color.parseColor("#FFFFFF"));
-                btn_next.setBackgroundResource(R.drawable.nextbuttongreen);
-                btn_next.setEnabled(true);
+
                 profileName = edittext_profile.getText().toString();
 
             }
@@ -329,10 +314,7 @@ public class ProfileEditActivity extends BaseActivity implements MyView {
                     downloadUri = task.getResult();
                     Log.d("확인","파이어베이스 성공"+downloadUri);
 
-                    Intent profile = new Intent(ProfileEditActivity.this, TownSettingActivity.class);
-
-                    profile.putExtra("url",downloadUri.toString());
-                    startActivity(profile);
+                    tryPathchMyInfo(email,profileName,downloadUri.toString());
 
 
                     hideProgressDialog();
@@ -554,8 +536,12 @@ public class ProfileEditActivity extends BaseActivity implements MyView {
                                 .with(this)
                                 .load(response.getResult().getProfile())
                                 .into(img_profile);
+
+
                     }else{
                         img_profile.setImageResource(R.drawable.profile_none);
+                        mIsDefaultImage =true;
+
                     }
 
 
@@ -572,6 +558,18 @@ public class ProfileEditActivity extends BaseActivity implements MyView {
     @Override
     public void validatePatchProfileSuccess(PatchProfileResponse response) {
         Log.d("확인","프로필 수정 성공");
+
+
+
+        SharedPreferences.Editor editor = sSharedPreferences.edit();
+
+        if(mIsDefaultImage==true){
+            editor.putString("사진",BitMapToString(icon));
+        }else{
+            editor.putString("사진",BitMapToString(mProfileBitmap));
+        }
+        editor.apply();
+
     }
 
     @Override
@@ -603,4 +601,26 @@ public class ProfileEditActivity extends BaseActivity implements MyView {
     public void validateFailure(String message) {
 
     }
+
+
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+
+    private void saveData(){
+
+        mProfileBitmap = StringToBitMap(sSharedPreferences.getString("사진",""));
+
+
+
+    }
+
+
 }

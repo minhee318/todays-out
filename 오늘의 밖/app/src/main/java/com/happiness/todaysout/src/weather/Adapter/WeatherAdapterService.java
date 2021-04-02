@@ -92,4 +92,29 @@ class WeatherAdapterService {
             }
         });
     }
+
+    void postReportContent(Long messageBoardIdx) {
+
+        final WeatherAdapterRetrofitInterface weatherAdapterRetrofitInterface = getRetrofit().create(WeatherAdapterRetrofitInterface.class);
+
+        weatherAdapterRetrofitInterface.postReportContent(messageBoardIdx).enqueue(new Callback<ReportResponse>() {
+            @Override
+            public void onResponse(Call<ReportResponse> call, Response<ReportResponse> response) {
+
+                final ReportResponse adapterResponse = response.body();
+                if (adapterResponse == null) {
+                    mWeatherAdapterView.validateFailure(null);
+                    return;
+                }
+
+                mWeatherAdapterView.validatePostReportContentSuccess(adapterResponse);
+            }
+
+            @Override
+            public void onFailure(Call<ReportResponse> call, Throwable t) {
+
+                mWeatherAdapterView.validateFailure(null);
+            }
+        });
+    }
 }

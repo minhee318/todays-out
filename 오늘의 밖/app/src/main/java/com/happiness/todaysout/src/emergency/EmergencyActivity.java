@@ -107,6 +107,7 @@ public class EmergencyActivity extends BaseActivity implements View.OnClickListe
         icon = findViewById(R.id.icon);
         icon2 = findViewById(R.id.icon2);
         btn_info = findViewById(R.id.btn_info);
+        btn_info.setOnClickListener(this);
 
 
 
@@ -288,6 +289,7 @@ public class EmergencyActivity extends BaseActivity implements View.OnClickListe
     private void tryGetJInfo(int month, int day) {
         showProgressDialog();
         final JService jService = new JService(this);
+        Log.d("확인","hi"+sSharedPreferences.getLong("USER_IDX", -1)+month+day+gu+"서울특별시");
         jService.getJ(sSharedPreferences.getLong("USER_IDX", -1),month,day,gu,"서울특별시");
     }
 

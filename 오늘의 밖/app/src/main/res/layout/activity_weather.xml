@@ -441,6 +441,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/ellipsekkk"
                     android:orientation="vertical"
+                    android:layout_marginRight="10dp"
                     android:padding="20dp">
 
                     <TextView
@@ -476,7 +477,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_marginHorizontal="10dp"
+
+                    android:layout_marginHorizontal="5dp"
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/bigbubble"
                     android:padding="10dp"

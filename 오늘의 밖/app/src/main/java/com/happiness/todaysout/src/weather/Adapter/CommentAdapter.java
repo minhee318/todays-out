@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -143,18 +144,24 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.SliderVi
     @Override
     public void validateDeleteSuccess(ReportResponse response) {
 
-        Log.d("확인","댓글삭제성공");
 
     }
 
     @Override
     public void validateDeleteCommentSuccess(ReportResponse response) {
+        Toast.makeText(context, "댓글이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
         Log.d("확인","댓글삭제성공");
     }
 
     @Override
     public void validatePostReportCommentSuccess(ReportResponse response) {
+        Toast.makeText(context, "댓글이 신고되었습니다.", Toast.LENGTH_SHORT).show();
         Log.d("확인","댓글 신고 성공");
+    }
+
+    @Override
+    public void validatePostReportContentSuccess(ReportResponse response) {
+
     }
 
     @Override

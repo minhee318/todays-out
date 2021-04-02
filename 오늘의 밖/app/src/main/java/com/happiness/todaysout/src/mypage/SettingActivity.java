@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.happiness.todaysout.R;
+import com.happiness.todaysout.src.ApplicationClass;
 import com.happiness.todaysout.src.BaseActivity;
 import com.happiness.todaysout.src.login.LoginActivity;
 import com.happiness.todaysout.src.mypage.Interface.MyView;
@@ -22,6 +23,7 @@ import com.happiness.todaysout.src.weather.models.ReportResponse;
 
 import static com.happiness.todaysout.src.ApplicationClass.FIRST_ADDRESSIDX;
 import static com.happiness.todaysout.src.ApplicationClass.FIRST_DONG;
+import static com.happiness.todaysout.src.ApplicationClass.IS_FIRST;
 import static com.happiness.todaysout.src.ApplicationClass.SECOND_ADDRESSIDX;
 import static com.happiness.todaysout.src.ApplicationClass.SECOND_DONG;
 import static com.happiness.todaysout.src.ApplicationClass.USER_EMAIL;
@@ -64,6 +66,7 @@ public class SettingActivity extends BaseActivity implements MyView {
                 editor2.remove(SECOND_DONG);
                 editor2.remove(FIRST_ADDRESSIDX);
                 editor2.remove(SECOND_ADDRESSIDX);
+                editor2.putBoolean(String.valueOf(ApplicationClass.IS_FIRST), false);
 
                 editor2.apply();
 
@@ -145,6 +148,7 @@ public class SettingActivity extends BaseActivity implements MyView {
     public void validateByeSuccess(ReportResponse response) {
         hideProgressDialog();
             Log.d("확인","회원탈퇴에 성공했습니다.");
+            Log.d("확인",response.getMessage());
         Intent write = new Intent(this, LoginActivity.class);
         startActivity(write);
 

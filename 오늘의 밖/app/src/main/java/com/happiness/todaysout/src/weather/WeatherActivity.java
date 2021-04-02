@@ -101,15 +101,26 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
     String gu;
     LinearLayout LL_weatherHeart;
     int page;
+    int totalPage;
 
 
     FrameLayout FL_content;
     private BottomSheetBehavior mBottomSheetBehavior;
 
+
+    @Override
+    protected void onRestart() {
+
+
+
+        super.onRestart();
+    }
+
     @Override
     protected void onResume() {
+
         page = 0;
-        tryGetBoardInfo(addressIdx, "recently");
+      tryGetBoardInfo(addressIdx,"recently",page);
 
         super.onResume();
     }
@@ -118,6 +129,8 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
+
+        page = 0;
 
         LL_weatherHeart = findViewById(R.id.LL_weatherHeart);
 
@@ -171,14 +184,15 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
                     rc_heart.setVisibility(View.INVISIBLE);
                     LL_heart.setVisibility(View.GONE);
                     fdFab.show();
-                    tryGetBoardInfo(addressIdx, "recently");
+                    page = 0;
+                    tryGetBoardInfo(addressIdx,"recently",page);
 
                 } else if (pos == 1) {
                     rc_heart.setVisibility(View.VISIBLE);
                     rc_noticeBoard.setVisibility(View.INVISIBLE);
                     LL_heart.setVisibility(View.VISIBLE);
                     fdFab.hide();
-                    tryGetBoardInfo(addressIdx, "heart");
+                    tryGetBoardInfo(addressIdx, "heart",0);
                 }
 
 
@@ -232,6 +246,8 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
                         //showCustomToast("Dragging...");
                         weatherScroll.setVisibility(View.VISIBLE);
                         LL_slideup.setVisibility(View.INVISIBLE);
+                        page = 0;
+                        tryGetBoardInfo(addressIdx,"recently",page);
                         break;
                     case BottomSheetBehavior.STATE_EXPANDED://전부 올렸을 때
                         // showCustomToast("Expanded");
@@ -275,9 +291,9 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
         tryGetDustInfo(addressIdx);
         tryGetTodayInfo(addressIdx);
 
-        page = 0;
 
-        tryGetBoardInfo(addressIdx, "recently");
+
+        tryGetBoardInfo(addressIdx, "recently",page);
 
 
         tryGetUpDownInfo(addressIdx);
@@ -322,10 +338,10 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
         weatherService.getWeek(addressIdx);
     }
 
-    private void tryGetBoardInfo(Long addressIdx, String sortType) {
+    private void tryGetBoardInfo(Long addressIdx, String sortType,int page) {
         showProgressDialog();
         final WeatherService weatherService = new WeatherService(this);
-        weatherService.getBoard(addressIdx, sortType,0, "WEATHER");
+        weatherService.getBoard(addressIdx, sortType,page, "WEATHER");
     }
 
 
@@ -361,24 +377,23 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
                 super.onScrollStateChanged(recyclerView, newState);
             }
 
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//
-//                int lastVisibleItemPosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
-//                int itemTotalCount = recyclerView.getAdapter().getItemCount();
-//
-//                if(lastVisibleItemPosition+1 == itemTotalCount){
-//                    page++;
-//                    if(page <= totalPage){
-//                        tryGetBoardInfo(addressIdx, "recently",page);
-//
-//                    }else {
-//
-//                    }
-//
-//                }
-//            }
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int lastVisibleItemPosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                int itemTotalCount = recyclerView.getAdapter().getItemCount();
+
+                if(lastVisibleItemPosition+1 == itemTotalCount){
+                    page++;
+                    if(page <= totalPage){
+                        tryGetBoardInfo(addressIdx, "recently",page);
+                    }else {
+
+                    }
+
+                }
+            }
         });
 
     }
@@ -601,14 +616,14 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
                     Log.d("확인", "하트순위 성공");
                     rankList.clear(); //먼저 eventList에 있는 것들을 다 지운다.
 
-                    if (response.getResult().size() > 5) {
-                        rankList.add(response.getResult().get(0));
-                        rankList.add(response.getResult().get(1));
-                        rankList.add(response.getResult().get(2));
-                        rankList.add(response.getResult().get(3));
-                        rankList.add(response.getResult().get(4));
+                    if (response.getResult().getMsgList().size() > 5) {
+                        rankList.add(response.getResult().getMsgList().get(0));
+                        rankList.add(response.getResult().getMsgList().get(1));
+                        rankList.add(response.getResult().getMsgList().get(2));
+                        rankList.add(response.getResult().getMsgList().get(3));
+                        rankList.add(response.getResult().getMsgList().get(4));
                     } else {
-                        rankList.addAll(response.getResult());
+                        rankList.addAll(response.getResult().getMsgList());
                     }
 
 
@@ -636,15 +651,18 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
                 case 1216:
                     Log.d("확인", "게시판 성공");
 
+                    if(page == 0){
+                        noticeList.clear(); //먼저 eventList에 있는 것들을 다 지운다.
+                    }
+//
 
-                    noticeList.clear(); //먼저 eventList에 있는 것들을 다 지운다.
-
-                    noticeList.addAll(response.getResult());
+                    noticeList.addAll(response.getResult().getMsgList());
 
 
+                    firstContent = response.getResult().getMsgList().get(0).getMsg();
 
 
-                    firstContent = response.getResult().get(0).getMsg();
+                    totalPage = ((response.getResult().getCount()) / 10) + 1;
 
 
 
@@ -655,12 +673,12 @@ public class WeatherActivity extends BaseActivity implements View.OnClickListene
                     }
 
 
-
-                    firstHeartNum = response.getResult().get(0).getHeartNum();
+                    firstHeartNum = response.getResult().getMsgList().get(0).getHeartNum();
 
                     if(firstHeartNum != null){
 
                             text_heart_number.setText(firstHeartNum);
+                        LL_weatherHeart.setVisibility(View.VISIBLE);
 
                     }else{
                         LL_weatherHeart.setVisibility(View.INVISIBLE);

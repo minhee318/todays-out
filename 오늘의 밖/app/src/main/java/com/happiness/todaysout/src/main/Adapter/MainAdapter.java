@@ -221,7 +221,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SliderViewHold
 
 
                 if (mainInfo.getWeatherPicture().equals("1")) {
-                    img_weather_icon.setImageResource(R.drawable.one1);
+                    img_weather_icon.setImageResource(R.drawable.testsun);
                 } else if (mainInfo.getWeatherPicture().equals("2")) {
                     img_weather_icon.setImageResource(R.drawable.one2);
                 } else if (mainInfo.getWeatherPicture().equals("3")) {

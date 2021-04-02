@@ -13,6 +13,8 @@ public class GuideActivity extends BaseActivity {
 
     TabLayout info;
     ImageView btn_x;
+    ImageView natural;
+    ImageView society;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,11 @@ public class GuideActivity extends BaseActivity {
             }
         });
 
+
+
+        natural = findViewById(R.id.natural);
+        society = findViewById(R.id.society);
+
         info.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -36,9 +43,13 @@ public class GuideActivity extends BaseActivity {
                 int pos = tab.getPosition();
                 if (pos == 0) {
                    //자연재난 선택
+                    natural.setVisibility(View.VISIBLE);
+                    society.setVisibility(View.GONE);
 
                 } else if (pos == 1) {
                     //사회재난 선택
+                    natural.setVisibility(View.GONE);
+                    society.setVisibility(View.VISIBLE);
                 }
 
 

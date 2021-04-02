@@ -1,12 +1,14 @@
 package com.happiness.todaysout.src.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.happiness.todaysout.R;
+import com.happiness.todaysout.src.ApplicationClass;
 import com.happiness.todaysout.src.BaseActivity;
 import com.happiness.todaysout.src.login.Interface.LoginActivityView;
 import com.happiness.todaysout.src.login.models.LoginResponse;
@@ -14,9 +16,11 @@ import com.happiness.todaysout.src.login.models.SignInResponse;
 import com.happiness.todaysout.src.main.MainActivity;
 
 import static com.happiness.todaysout.src.ApplicationClass.FIRST_ADDRESSIDX;
+import static com.happiness.todaysout.src.ApplicationClass.FIRST_DONG;
 import static com.happiness.todaysout.src.ApplicationClass.NICKNAME;
 import static com.happiness.todaysout.src.ApplicationClass.PROFILE_IMAGE;
 import static com.happiness.todaysout.src.ApplicationClass.SECOND_ADDRESSIDX;
+import static com.happiness.todaysout.src.ApplicationClass.SECOND_DONG;
 import static com.happiness.todaysout.src.ApplicationClass.USER_EMAIL;
 import static com.happiness.todaysout.src.ApplicationClass.USER_IDX;
 import static com.happiness.todaysout.src.ApplicationClass.X_ACCESS_TOKEN;
@@ -30,7 +34,7 @@ public class SplashActivity extends BaseActivity implements LoginActivityView {
 
         setContentView(R.layout.activity_splash);
 
-//
+
 //        SharedPreferences.Editor editor2 = sSharedPreferences.edit();
 //        editor2.remove(X_ACCESS_TOKEN);
 //        editor2.remove(USER_IDX);
@@ -38,7 +42,7 @@ public class SplashActivity extends BaseActivity implements LoginActivityView {
 //        editor2.remove(SECOND_DONG);
 //        editor2.remove(FIRST_ADDRESSIDX);
 //        editor2.remove(SECOND_ADDRESSIDX);
-//
+//        editor2.putBoolean(String.valueOf(ApplicationClass.IS_FIRST), false);
 //        editor2.apply();
 
 

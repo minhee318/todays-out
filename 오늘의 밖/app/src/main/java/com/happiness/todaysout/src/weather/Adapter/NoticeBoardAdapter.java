@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,6 +41,7 @@ public class NoticeBoardAdapter extends RecyclerView.Adapter<NoticeBoardAdapter.
     Long addressIdx;
 
 
+
 //    Long userIdx2 = sSharedPreferences.getLong("USER_IDX", -1);
 
 
@@ -47,6 +49,7 @@ public class NoticeBoardAdapter extends RecyclerView.Adapter<NoticeBoardAdapter.
         this.context = context;
         this.noticeBoardlist = noticeBoardlist;
         this.addressIdx = addressIdx;
+
 
     }
 
@@ -116,7 +119,7 @@ public class NoticeBoardAdapter extends RecyclerView.Adapter<NoticeBoardAdapter.
                     report.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                            tryPostReportContentInfo(noticeBoardlist.get(position).getBoardIdx());
                             profileDialog.cancel();
                         }
                     });
@@ -140,9 +143,9 @@ public class NoticeBoardAdapter extends RecyclerView.Adapter<NoticeBoardAdapter.
                     delete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                             removeItem(position);
-                             tryDeleteInfo(noticeBoardlist.get(position).getBoardIdx());
 
+                             tryDeleteInfo(noticeBoardlist.get(position).getBoardIdx());
+                            removeItem(position);
                             profileDialog.cancel();
                         }
                     });
@@ -187,6 +190,12 @@ public class NoticeBoardAdapter extends RecyclerView.Adapter<NoticeBoardAdapter.
 
     }
 
+    private void tryPostReportContentInfo(Long messageBoardIdx) {
+
+        final WeatherAdapterService weatherAdapterService = new WeatherAdapterService(this);
+        weatherAdapterService.postReportContent(messageBoardIdx);
+    }
+
     @Override
     public int getItemCount() {
         return noticeBoardlist.size();
@@ -227,6 +236,12 @@ public class NoticeBoardAdapter extends RecyclerView.Adapter<NoticeBoardAdapter.
     @Override
     public void validatePostReportCommentSuccess(ReportResponse response) {
 
+    }
+
+    @Override
+    public void validatePostReportContentSuccess(ReportResponse response) {
+        Toast.makeText(context, "게시물이 신고되었습니다.", Toast.LENGTH_SHORT).show();
+        Log.d("확인","게시물 신고 성공");
     }
 
     @Override
