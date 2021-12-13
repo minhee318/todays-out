@@ -1,6 +1,6 @@
 # todays-out
 
- 오늘의 밖 - 우리 동네 날씨와 재난을 한눈에 
+ 오늘의 밖 - 우리 동네 날씨와 재난을 한눈에 (2021.1 ~ 2021.3)
  
  ![오늘의 밖 _app_icon-3](https://user-images.githubusercontent.com/52806967/145843765-256712cb-34cb-4746-9b3a-2a618848da09.png)
 
